@@ -8,7 +8,7 @@ RUN pip install -r /requirments.txt
 
 RUN mkdir /app
 WORKDIR /app
-COPY /app /app
+COPY ./app /app
 
 RUN adduser -DEBUG user
 USER user
