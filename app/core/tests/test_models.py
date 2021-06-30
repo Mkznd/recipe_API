@@ -19,14 +19,15 @@ class ModelTests(TestCase):
         """Tests if new user email is normalized
         (email domain in all lowercase)"""
 
-        email = "test@MKZND.com"
+        email = 'Test@MKZND.com'
+        normalized_email = 'Test@mkznd.com'
         password = '12345'
         user = get_user_model().objects.create_user(
             email=email,
             password=password
         )
 
-        self.assertEqual(user.email, email.lower())
+        self.assertEqual(user.email, normalized_email)
 
     def test_new_user_invalid_email_error(self):
         """Tests if the user creation is failed
@@ -34,3 +35,15 @@ class ModelTests(TestCase):
 
         with self.assertRaises(ValueError):
             get_user_model().objects.create_user(None, '1234')
+
+    def test_create_new_superuser(self):
+        """Tests creating a new superuser
+        and adding its is_staff and is_superuser"""
+
+        email = 'test@mkznd.com'
+        user = get_user_model().objects.create_superuser(
+            email=email,
+            password='12345'
+        )
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_superuser)
