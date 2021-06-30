@@ -7,7 +7,7 @@ COPY ./requirments.txt /requirments.txt
 RUN pip install -r /requirments.txt
 
 RUN mkdir /app
-WORKDIR /app
+WORKDIR ./app
 COPY ./app /app
 
 RUN adduser --disabled-password user
