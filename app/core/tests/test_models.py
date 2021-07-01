@@ -1,5 +1,16 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+# noinspection PyUnresolvedReferences
+from core import models
+
+
+def sample_user(email='test@mkznd.com', password='password', name='Tester'):
+    """Creates a sample user with default or provided parameters"""
+    return get_user_model().objects.create_user(
+        email=email,
+        password=password,
+        name=name
+    )
 
 
 class ModelTests(TestCase):
@@ -47,3 +58,12 @@ class ModelTests(TestCase):
         )
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_tag_str(self):
+        """Test tag string representation"""
+        tag = models.Tag.objects.create(
+            user=sample_user(),
+            name='Vegan'
+        )
+
+        self.assertEqual(str(tag), tag.name)
