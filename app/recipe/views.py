@@ -6,9 +6,9 @@ from core.models import Tag, Ingredient
 from recipe import serializers
 
 
-class BaseRecipeAttribute(viewsets.GenericViewSet,
-                          mixins.ListModelMixin,
-                          mixins.CreateModelMixin):
+class BaseRecipeAttributeViewSet(viewsets.GenericViewSet,
+                                 mixins.ListModelMixin,
+                                 mixins.CreateModelMixin):
     """Base class for tags and ingredients"""
 
     authentication_classes = (TokenAuthentication,)
@@ -23,14 +23,14 @@ class BaseRecipeAttribute(viewsets.GenericViewSet,
         serializer.save(user=self.request.user)
 
 
-class TagViewSet(BaseRecipeAttribute):
+class TagViewSet(BaseRecipeAttributeViewSet):
     """Manage tags in the database"""
 
     queryset = Tag.objects.all()
     serializer_class = serializers.TagSerializer
 
 
-class IngredientViewSet(BaseRecipeAttribute):
+class IngredientViewSet(BaseRecipeAttributeViewSet):
     """Manage ingredients in the database"""
 
     queryset = Ingredient.objects.all()
