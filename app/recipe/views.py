@@ -30,7 +30,7 @@ class TagViewSet(BaseRecipeAttributeViewSet):
     serializer_class = serializers.TagSerializer
 
 
-class IngredientViewSet(BaseRecipeAttributeViewSet):
+class IngredientViewSet(BaseRecipeAttributeViewSet, mixins.DestroyModelMixin):
     """Manage ingredients in the database"""
 
     queryset = Ingredient.objects.all()
